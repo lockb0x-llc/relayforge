@@ -1,0 +1,33 @@
+name: Multi-Cloud VM Deployment
+description: Deploy VMs across AWS and GCP
+
+jobs:
+  provision-aws:
+    runs-on: aws-runner
+    steps:
+      - name: Create AWS EC2 instance
+        run: |
+          aws ec2 run-instances \
+            --image-id ami-0abcdef1234567890 \
+            --instance-type t3.micro \
+            --key-name my-key \
+            --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=RelayForge-VM}]"
+      - name: Wait for instance
+        run: |
+          aws ec2 wait instance-running --instance-ids $INSTANCE_ID
+
+  provision-gcp:
+    runs-on: gcp-runner
+    steps:
+      - name: Create GCP VM instance
+        run: |
+          gcloud compute instances create relayforge-vm \
+            --zone=us-central1-a \
+            --machine-type=e2-micro \
+            --image-family=ubuntu-2004-lts \
+            --image-project=ubuntu-os-cloud
+      - name: Configure firewall
+        run: |
+          gcloud compute firewall-rules create allow-http \
+            --allow tcp:80,tcp:443 \
+            --source-ranges 0.0.0.0/0
