@@ -1,0 +1,48 @@
+name: Docker Container Workflow
+description: Build and deploy a containerized application
+
+jobs:
+  build:
+    runs-on: docker
+    steps:
+      - name: Create Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM nginx:alpine
+          COPY index.html /usr/share/nginx/html/
+          EXPOSE 80
+          EOF
+      
+      - name: Create index.html
+        run: |
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>RelayForge Demo</title>
+          </head>
+          <body>
+              <h1>Hello from RelayForge!</h1>
+              <p>This container was deployed using RelayForge workflows.</p>
+          </body>
+          </html>
+          EOF
+      
+      - name: Build Docker image
+        run: docker build -t relayforge-demo:latest .
+      
+      - name: Run container
+        run: |
+          docker run -d --name relayforge-demo -p 8081:80 relayforge-demo:latest
+          echo "Container started on port 8081"
+      
+      - name: Test container
+        run: |
+          sleep 5
+          curl -f http://localhost:8081 || echo "Container not responding"
+      
+      - name: Cleanup
+        run: |
+          docker stop relayforge-demo || true
+          docker rm relayforge-demo || true
+          docker rmi relayforge-demo:latest || true

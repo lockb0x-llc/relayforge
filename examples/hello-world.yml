@@ -1,0 +1,24 @@
+name: Simple Hello World
+description: A basic workflow demonstrating shell command execution
+
+jobs:
+  hello:
+    runs-on: any
+    steps:
+      - name: Print greeting
+        run: echo "Hello from RelayForge!"
+      
+      - name: Show system info
+        run: |
+          echo "Running on: $(uname -a)"
+          echo "Current user: $(whoami)"
+          echo "Current directory: $(pwd)"
+          echo "Date: $(date)"
+      
+      - name: Create test file
+        run: |
+          echo "This is a test file created by RelayForge" > /tmp/relayforge-test.txt
+          cat /tmp/relayforge-test.txt
+      
+      - name: Cleanup
+        run: rm -f /tmp/relayforge-test.txt
