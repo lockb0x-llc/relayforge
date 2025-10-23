@@ -44,9 +44,6 @@ It plugs into GitHub, Docker, PostgreSQL, and other common tools—so your teams
 
 >  Enhances existing investments, avoids disruption, and supports gradual adoption.
 
----
-
-If you want, I can help you translate this into a pitch deck slide, investor memo, or internal rollout strategy. Want to pivot toward a specific vertical—finance, retail, compliance?
 
 ## Features
 
