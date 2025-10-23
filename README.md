@@ -1,6 +1,8 @@
 # RelayForge
 
 RelayForge is a decentralized infrastructure orchestration platform with a cloud control plane, federated runners, CLI, UI, and workflow templates.
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ce9675df-8527-445c-a9ab-833a96e7bbd4" />
+
 
 ## 🧭 Strategic Use Cases (Executive Summary)
 
